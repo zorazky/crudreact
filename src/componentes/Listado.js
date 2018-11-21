@@ -14,12 +14,13 @@ class Listado extends Component {
                     <Post 
                         key={post}
                         info={this.props.posts[post]}
+                        borrarPost={this.props.borrarPost}
                     />
                 ))}
             </React.Fragment>
         )
 
-        console.log(posts);
+        
     }
 
     render() {
