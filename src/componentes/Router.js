@@ -5,6 +5,22 @@ import Header from './Header';
 import Navegacion from './Navegacion';
 
 class Router extends Component {
+    state = {
+        posts: []
+    }
+
+    componentDidMount() {
+        this.obtenerPost();
+    }
+
+    obtenerPost = () => {
+        axios.get(`https://jsonplaceholder.typicode.com/posts`)
+            .then(res => {
+                this.setState({
+                    posts: res.data
+                })
+            })
+    }
     render() {
         return (
             <BrowserRouter>
