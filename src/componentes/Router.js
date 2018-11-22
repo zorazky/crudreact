@@ -5,6 +5,7 @@ import Header from './Header';
 import Navegacion from './Navegacion';
 import Posts from './Posts';
 import SinglePost from './SinglePost';
+import Formulario from './Formulario';
 
 class Router extends Component {
     state = {
@@ -70,6 +71,7 @@ class Router extends Component {
                                 )
                             }}
                             />
+                            <Route exact path="/crear" component={Formulario} />
                         </Switch>
                     </div>
                 </div>
