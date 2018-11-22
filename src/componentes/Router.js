@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert2';
 import Header from './Header';
 import Navegacion from './Navegacion';
 import Posts from './Posts';
