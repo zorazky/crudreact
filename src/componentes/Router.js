@@ -31,11 +31,25 @@ class Router extends Component {
                 if(res.status === 200) {
                     const posts = [...this.state.posts];
                     let resultado = posts.filter(post => (
-                        post.id != id
+                        post.id !== id
                     ));
                     this.setState({
                         posts: resultado
                     })
+                }
+            })
+    }
+    crearPost = (post) => {
+        axios.post(`https://jsonplaceholder.typicode.com/posts`, {post})
+            .then(res => {
+                if (res.status === 201) {
+                    let postId = {id: res.data.id};
+                    const nuevoPost = Object.assign({}, res.data.post, postId);
+                    
+                    this.setState(prevState => ({
+                        posts: [...prevState.posts, nuevoPost]
+                    }))
+                    
                 }
             })
     }
@@ -71,7 +85,13 @@ class Router extends Component {
                                 )
                             }}
                             />
-                            <Route exact path="/crear" component={Formulario} />
+                            <Route exact path="/crear" render={ () => {
+                                return (
+                                    <Formulario 
+                                        crearPost={this.crearPost}
+                                    />
+                                )
+                            }} />
                         </Switch>
                     </div>
                 </div>

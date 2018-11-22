@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 
 class Formulario extends Component {
+    tituloRef = React.createRef();
+    entradaRef = React.createRef();
+    crearPost = (e) => {
+        e.preventDefault();
+
+        const post = {
+            title: this.tituloRef.current.value,
+            body: this.entradaRef.current.value,
+            userId: 1
+        }
+
+        //console.log(post);
+        this.props.crearPost(post);
+    }
     render() {
         return (
-            <form className="col-8">
+            <form onSubmit={this.crearPost} className="col-8">
                 <legend className="text-center">Crear Nuevo Post</legend>
                 <div className="form-group">
                     <label>Titulo del Post:</label>
-                    <input type="text" className="form-control" placeholder="Titulo del Post"/>
+                    <input type="text" ref={this.tituloRef} className="form-control" placeholder="Titulo del Post"/>
                 </div>
                 <div className="form-group">
                     <label>Contenido:</label>
-                    <textarea type="text" className="form-control" placeholder="Contenido..."> </textarea>
+                    <textarea className="form-control" ref={this.entradaRef}  placeholder="Contenido..."> </textarea>
                 </div>
                 <button type="submit" className="btn btn-primary">Crear</button>
             </form>
