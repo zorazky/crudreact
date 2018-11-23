@@ -7,6 +7,7 @@ import Navegacion from './Navegacion';
 import Posts from './Posts';
 import SinglePost from './SinglePost';
 import Formulario from './Formulario';
+import Editar from './Editar';
 
 class Router extends Component {
     state = {
@@ -44,6 +45,11 @@ class Router extends Component {
         axios.post(`https://jsonplaceholder.typicode.com/posts`, {post})
             .then(res => {
                 if (res.status === 201) {
+                    swal(
+                        'Good job!',
+                        'You clicked the button!',
+                        'success'
+                    )
                     let postId = {id: res.data.id};
                     const nuevoPost = Object.assign({}, res.data.post, postId);
                     
@@ -51,6 +57,16 @@ class Router extends Component {
                         posts: [...prevState.posts, nuevoPost]
                     }))
                     
+                }
+            })
+    }
+
+    editarPost = (postActualizado) => {
+        const { id } = postActualizado;
+        axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {postActualizado})
+            .then(res => {
+                if(res.status === 200) {
+                    this.obtenerPost();
                 }
             })
     }
@@ -93,6 +109,21 @@ class Router extends Component {
                                     />
                                 )
                             }} />
+                            <Route exact path="/editar/:postId" render={ (props) => {
+                                let idPost = props.location.pathname.replace('/editar/','');
+                                const posts = this.state.posts;
+                                let filtro;
+                                filtro = posts.filter(post => (
+                                    post.id === Number(idPost)
+                                ))
+                                return (
+                                   <Editar
+                                        post={filtro[0]}
+                                        editarPost={this.editarPost}
+                                   />
+                                )
+                            }}
+                            />
                         </Switch>
                     </div>
                 </div>
