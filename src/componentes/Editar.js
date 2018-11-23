@@ -30,7 +30,7 @@ class Editar extends Component {
                 </div>
                 <div className="form-group">
                     <label>Contenido:</label>
-                    <textarea className="form-control" ref={this.entradaRef} defaultValue={body}> </textarea>
+                    <textarea className="form-control" ref={this.entradaRef}> </textarea>
                 </div>
                 <button type="submit" className="btn btn-primary">Guardar Cambios</button>
             </form>
